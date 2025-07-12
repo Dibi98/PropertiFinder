@@ -63,7 +63,7 @@ export function AddPropertyForm({ onSubmit, onCancel, initialCoordinates }: AddP
 
   useEffect(() => {
     if (initialCoordinates) {
-        form.setValue('coordinates', initialCoordinates);
+        form.setValue('coordinates', initialCoordinates, { shouldDirty: true });
     }
   }, [initialCoordinates, form]);
 
@@ -123,10 +123,10 @@ export function AddPropertyForm({ onSubmit, onCancel, initialCoordinates }: AddP
                  </div>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField control={form.control} name="coordinates.lat" render={({ field }) => (
-                        <FormItem><FormLabel>Latitude</FormLabel><FormControl><Input type="number" disabled {...field} /></FormControl><FormMessage /></FormItem>
+                        <FormItem><FormLabel>Latitude</FormLabel><FormControl><Input type="number" step="any" disabled {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
                      <FormField control={form.control} name="coordinates.lng" render={({ field }) => (
-                        <FormItem><FormLabel>Longitude</FormLabel><FormControl><Input type="number" disabled {...field} /></FormControl><FormMessage /></FormItem>
+                        <FormItem><FormLabel>Longitude</FormLabel><FormControl><Input type="number" step="any" disabled {...field} /></FormControl><FormMessage /></FormItem>
                     )} />
                  </div>
                 <FormField control={form.control} name="description" render={({ field }) => (
