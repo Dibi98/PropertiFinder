@@ -166,18 +166,15 @@ function PropertyListingsComponent({ apiKey, properties: initialPropertiesData }
   }, []);
 
 
-  const handleMapClick = useCallback(() => {
+  const handleMapClick = useCallback((e: google.maps.MapMouseEvent) => {
     setSelectedPropertyForCard(null);
-  }, []);
-  
-  const handleMapRightClick = useCallback((e: google.maps.MapMouseEvent) => {
     if (e.latLng) {
       const coords = { lat: e.latLng.lat(), lng: e.latLng.lng() };
       setNewPropertyCoords(coords);
       setIsAddDrawerOpen(true);
     }
   }, []);
-
+  
   const handleAddDrawerOpen = (open: boolean) => {
       setIsAddDrawerOpen(open);
       if (!open) {
@@ -253,7 +250,6 @@ function PropertyListingsComponent({ apiKey, properties: initialPropertiesData }
               apiKey={apiKey}
               onMarkerClick={handleMarkerClick}
               onMapClick={handleMapClick}
-              onMapRightClick={handleMapRightClick}
               hoveredPropertyId={hoveredPropertyId}
               selectedPropertyIds={selectedPropertyIds}
             />
@@ -295,7 +291,7 @@ function PropertyListingsComponent({ apiKey, properties: initialPropertiesData }
         <DrawerContent>
            <DrawerHeader className="text-left">
               <DrawerTitle>Add New Property</DrawerTitle>
-              <DrawerDescription>Fill in the details for the new property. Right-click on the map to set coordinates. Click "Add Property" when you're done.</DrawerDescription>
+              <DrawerDescription>Fill in the details for the new property. The coordinates are set from the map. Click "Add Property" when you're done.</DrawerDescription>
             </DrawerHeader>
            <div className="p-4 pt-0">
              <AddPropertyForm 
