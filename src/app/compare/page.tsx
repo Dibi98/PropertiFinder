@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { CompareTable } from '@/components/compare-table';
-import { BackButton } from '@/components/back-button';
+
+export const dynamic = 'force-dynamic';
 
 export default function ComparePage() {
     return (
