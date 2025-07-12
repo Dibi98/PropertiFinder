@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, FileText } from 'lucide-react';
 import { BackButton } from './back-button';
+import Image from 'next/image';
 
 const formatPrice = (price: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -49,7 +50,7 @@ const exportToPdf = async () => {
 
     const input = document.getElementById('comparison-content');
     if (input) {
-        html2canvas(input, { scale: 2 }).then(canvas => {
+        html2canvas(input, { scale: 2, useCORS: true }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -122,6 +123,20 @@ export function CompareTable() {
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
+                                        <TableRow>
+                                            <TableCell className="font-medium">Gambar</TableCell>
+                                            {selectedProperties.map(p => (
+                                                <TableCell key={p.id}>
+                                                    <Image
+                                                        src={p.images[0]}
+                                                        alt={p.title}
+                                                        width={200}
+                                                        height={150}
+                                                        className="object-cover rounded-md"
+                                                    />
+                                                </TableCell>
+                                            ))}
+                                        </TableRow>
                                         <TableRow>
                                             <TableCell className="font-medium">Harga</TableCell>
                                             {selectedProperties.map(p => <TableCell key={p.id}>{formatPrice(p.price)}</TableCell>)}
